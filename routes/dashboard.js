@@ -25,7 +25,7 @@ router.get('/signout',(req,res)=>{
 });
 
 router.get('/register',checkAuth,checkAdmin,(req,res)=>{
-  res.render('registerUser');
+  res.render('registerUser',{user:req.user.username,admin:req.user.admin});
 });
 
 router.post('/register',checkAuth,checkAdmin,(req,res)=>{
@@ -35,12 +35,12 @@ router.post('/register',checkAuth,checkAdmin,(req,res)=>{
 
 router.get('/userlist',checkAuth,checkAdmin,(req,res)=>{
   usersCtrl.getUsers().then((query)=>{
-    res.render('userlist',{userlist:query});
+    res.render('userlist',{userlist:query,user:req.user.username,admin:req.user.admin});
   });
 });
 
 router.get('/submission',checkAuth,(req,res)=>{
-  res.send('Submit sequencing data');
+  res.render('submitSeq',{user:req.user.username,admin:req.user.admin});
 });
 
 module.exports = router;
