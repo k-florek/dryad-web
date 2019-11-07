@@ -32,7 +32,11 @@ app.use(passport.session());
 
 //Configure Mongoose
 mongoose.promise = global.Promise;
-mongoose.connect('mongodb://localhost/dryadDataBase',{ useNewUrlParser: true,useUnifiedTopology: true });
+
+mongoose.connect('mongodb://localhost/dryad',{ useNewUrlParser: true,useUnifiedTopology: true }).
+  catch(err => {
+    console.log(err);
+  });
 
 //setup passport
 let User = require('./models/User');
@@ -41,16 +45,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //setup default user
-User.findOne({username:'test@test.com'},(err,user)=>{
-  if (err) {
-    console.log(err);
-  }
-  if (!user) {
-    User.register({username:'test@test.com',admin:true},'1234',(err)=>{
-      if (err){console.log(err);}
-    });
-  }
-});
+require('./controller/registerUser')(username='test@test.com',password='1234',group='WSLH',admin=true);
 
 
 //pull routes

@@ -1,0 +1,42 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description' content='')
+  meta(name='author' content='Kelsey Florek')
+  title Dryad Web
+  // Bootstrap core CSS
+  link(href='/css/bootstrap/bootstrap.min.css' rel='stylesheet')
+  style.
+    .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+    @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+    }
+    }
+  // Custom styles for this template
+  link(href='/css/signin.css' rel='stylesheet')
+form(action='/register',method="post",oninput='password_confirm.setCustomValidity(password_confirm.value != password.value ? "Passwords do not match." : "")').form-signin
+  //img.mb-4(src='/docs/4.3/assets/brand/bootstrap-solid.svg' alt='' width='72' height='72')
+  h1.h3.mb-3.font-weight-normal Register new user
+  label.sr-only(for='inputEmail') Email address
+  input#inputEmail.form-control(type='email' name="username" placeholder='Email address' required='' autofocus='')
+  label.sr-only(for='inputPassword') Password
+  input#inputPassword.form-control(type='password' name="password" placeholder='Password' required='')
+  label.sr-only(for='inputPassword') Confirm Password
+  input#inputConfrimPassword.form-control(type='password' name="password_confirm" placeholder='Confirm Password' required='')
+  h5.font-weight-normal Administrator
+  select#adminSelect.custom-select
+    option(selected=false) False
+    option(value=true) True
+  h5.font-weight-normal Group
+  input#inputGroup.form-control(name="group" placeholder='Group' required='')
+    
+  button.btn.btn-lg.btn-primary.btn-block(type='submit') Register

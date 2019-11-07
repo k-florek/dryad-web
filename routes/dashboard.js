@@ -5,6 +5,7 @@ const checkAuth = require('../middleware/checkAuth');
 const checkAdmin = require('../middleware/checkAdmin');
 const router = express.Router();
 
+
 router.get('/',checkAuth,(req,res)=>{
   res.render('dashboard',{user:req.user.username,admin:req.user.admin});
 });
@@ -23,11 +24,12 @@ router.get('/signout',(req,res)=>{
 });
 
 router.get('/register',checkAuth,checkAdmin,(req,res)=>{
-  res.send('THis is will be registration');
+  res.render('registerUser');
 });
 
 router.post('/register',checkAuth,checkAdmin,(req,res)=>{
-  res.send('THis is will be registration');
+  require('../controller/registerUser')(username=req.body.username,password=req.body.password,group=req.body.group,admin=req.body.admin);
+  res.redirect('/');
 });
 
 router.get('/listusers',checkAuth,checkAdmin,(req,res)=>{
