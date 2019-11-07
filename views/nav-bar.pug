@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description' content='')
+    meta(name='author' content='Kelsey Florek')
+    title Dryad Dashboard
+    block scripts
+  body
+    nav.navbar.navbar-dark.fixed-top.bg-dark.flex-md-nowrap.p-0.shadow
+      a.navbar-brand.col-sm-3.col-md-2.mr-0(href='#') Dryad Analysis Platform
+      //input.form-control.form-control-dark.w-100(type='text' placeholder='Search' aria-label='Search')
+      ul.navbar-nav.px-3
+        li Welcome #{user} 
+    .container-fluid
+      .row
+        nav.col-md-2.d-none.d-md-block.bg-light.sidebar
+          .sidebar-sticky
+            ul.nav.flex-column
+              li.nav-item
+                a.nav-link.active(href='/')
+                  span(data-feather='home')
+                  |               Dashboard 
+                  span.sr-only (current)
+              li.nav-item
+                a.nav-link(href='/submission')
+                  span(data-feather='file')
+                  |               Submit
+              if admin
+                li.nav-item
+                  a.nav-link(href='/userlist')
+                    span(data-feather='shopping-cart')
+                    |               Users
+                li.nav-item
+                  a.nav-link(href='/register')
+                    span(data-feather='users')
+                    |               Register New User
+              li.nav-item
+                a.nav-link(href='/signout')
+                  span(data-feather='file-text')
+                  |               Sign out
+    block content
+  block end
