@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const checkAuth = require('../middleware/checkAuth');
 const checkAdmin = require('../middleware/checkAdmin');
+const usersCtrl = require('../controller/users');
 const router = express.Router();
 
 
@@ -28,12 +29,14 @@ router.get('/register',checkAuth,checkAdmin,(req,res)=>{
 });
 
 router.post('/register',checkAuth,checkAdmin,(req,res)=>{
-  require('../controller/registerUser')(username=req.body.username,password=req.body.password,group=req.body.group,admin=req.body.admin);
+  usersCtrl.register(username=req.body.username,password=req.body.password,group=req.body.group,admin=req.body.admin);
   res.redirect('/');
 });
 
-router.get('/listusers',checkAuth,checkAdmin,(req,res)=>{
-  res.send('See all of the users here');
+router.get('/userlist',checkAuth,checkAdmin,(req,res)=>{
+  usersCtrl.getUsers().then((query)=>{
+    res.render('userlist',{userlist:query});
+  });
 });
 
 router.get('/submission',checkAuth,(req,res)=>{

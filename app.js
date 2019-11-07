@@ -17,7 +17,8 @@ app.use(express.static(__dirname + '/public'));
 app.use('/css/bootstrap',express.static(__dirname +'/node_modules/bootstrap/dist/css/'));
 app.use('/js/bootstrap',express.static(__dirname +'/node_modules/bootstrap/dist/js/'));
 app.use('/js/jquery',express.static(__dirname +'/node_modules/jquery/dist/'));
-
+app.use('/css/datatables',express.static(__dirname +'/node_modules/datatables/media/css'));
+app.use('/js/datatables',express.static(__dirname +'/node_modules/datatables/media/js'))
 
 //setup various middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -45,7 +46,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //setup default user
-require('./controller/registerUser')(username='test@test.com',password='1234',group='WSLH',admin=true);
+require('./controller/users').register(username='test@test.com',password='1234',group='WSLH',admin=true);
 
 
 //pull routes
