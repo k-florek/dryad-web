@@ -1,0 +1,45 @@
+extends nav-bar.pug
+block scripts
+  link(href='/css/submitSeq.css' rel='stylesheet')
+  script(src='/js/jquery/jquery.js')
+block content
+  form.seqsubmit.md-form(action="#")
+    h3 Submit Sequences
+    .form-group
+      label(for='genus') Genus
+      input#genus.form-control(name='genus' placeholder='Escherichia' type='text' required='required')
+    .form-group
+      label(for='species') Species
+      input#species.form-control(name='species' placeholder='coli' type='text' required='required')
+    .form-group
+      label(for='treeMethod') Tree Method
+      div
+        select#treeMethod.custom-select(name='treeMethod' required='required')
+          option(value='all') All
+          option(value='snp') SNP
+          option(value='cg') Core-Genome
+    .form-group
+      label(for='reference') Reference Sequence
+      div
+        select#reference.custom-select(name='reference' required='required')
+          option(value='ref1') Ref 1
+          option(value='ref2') Ref 2
+          option(value='other') Other
+    .form-group
+      label(for='usrReference') User Reference Sequence
+      .custom-file
+        input#usrReference.custom-file-input(type='file')
+        label.custom-file-label(for='usrReference') Choose file
+    .form-group
+      label(for='usrReference') Raw Fastq Files
+      .custom-file
+        input#fastqs.custom-file-input(type='file' multiple='')
+        label.custom-file-label(for='fastqs') Choose file
+
+    button.btn.btn-primary(name='submit' type='submit') Submit
+block end
+    script.
+      $('.custom-file-input').on('change', function() { 
+        let fileName = $(this).val().split('\\').pop(); 
+        $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+      });
