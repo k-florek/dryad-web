@@ -2,8 +2,9 @@ extends nav-bar.pug
 block scripts
   link(href='/css/submitSeq.css' rel='stylesheet')
   script(src='/js/jquery/jquery.js')
+  script(src='/js/progress.js')
 block content
-  form.seqsubmit.md-form(action="#")
+  form#seqsubmit.seqsubmit.md-form(action="/submission", method="post", enctype="multipart/form-data")
     h3 Submit Sequences
     .form-group
       label(for='genus') Genus
@@ -28,18 +29,29 @@ block content
     .form-group
       label(for='usrReference') User Reference Sequence
       .custom-file
-        input#usrReference.custom-file-input(type='file')
+        input#usrReference.custom-file-input(type='file' name="reference")
         label.custom-file-label(for='usrReference') Choose file
     .form-group
       label(for='usrReference') Raw Fastq Files
       .custom-file
-        input#fastqs.custom-file-input(type='file' multiple='')
+        input#fastqs.custom-file-input(type='file' multiple='' name="fastqfiles")
         label.custom-file-label(for='fastqs') Choose file
 
-    button.btn.btn-primary(name='submit' type='submit') Submit
+    button#submitButton.btn.btn-primary(name='submit' type='submit') Submit
+    
+    div#progressBar
+      div.progress
+        div#bar.progress-bar
+
+    div.alert.h5
+      strong.message
 block end
     script.
-      $('.custom-file-input').on('change', function() { 
-        let fileName = $(this).val().split('\\').pop(); 
-        $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+      $("document").ready(function() {
+        $(".custom-file-input").on('change', function() {
+          let input = $(this);
+          let fileName = input.val().split('\\').pop();
+          $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+        });
+      
       });

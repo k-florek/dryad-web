@@ -4,6 +4,9 @@ const passport = require('passport');
 const checkAuth = require('../middleware/checkAuth');
 const checkAdmin = require('../middleware/checkAdmin');
 const usersCtrl = require('../controller/users');
+const s3upload = require('../controller/awsS3');
+//const progress = require('progress-stream');
+
 const router = express.Router();
 
 
@@ -41,6 +44,25 @@ router.get('/userlist',checkAuth,checkAdmin,(req,res)=>{
 
 router.get('/submission',checkAuth,(req,res)=>{
   res.render('submitSeq',{user:req.user.username,admin:req.user.admin});
+});
+
+//code to convert bytes to various sizes
+function bytesToSize(bytes) {
+   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+   if (bytes == 0) return '0 Byte';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+
+function bytesToSpeed(bytes) {
+   var sizes = ['Bytes/Sec', 'KB/s', 'MB/s', 'GB/s', 'TB/s'];
+   if (bytes == 0) return '0 Byte';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+
+router.post('/submission',s3upload.fields([{name:"usrReference",maxCount:1},{name:"fastqfiles"}]),checkAuth,(req,res)=>{
+  res.redirect('/')
 });
 
 module.exports = router;

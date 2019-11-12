@@ -3,7 +3,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const s3FileUpload = require('./models/s3Upload');
 const cors = require('cors');
 const app = express();
 
@@ -32,7 +31,6 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
-app.use('/api', s3FileUpload);
 
 //Configure Mongoose
 mongoose.promise = global.Promise;
